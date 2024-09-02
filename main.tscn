@@ -1,0 +1,72 @@
+[gd_scene load_steps=7 format=3 uid="uid://dp64px3gxyqj2"]
+
+[ext_resource type="PackedScene" uid="uid://3hkma4ec7wy" path="res://tree_climber.tscn" id="1_87kdm"]
+[ext_resource type="Script" path="res://main.gd" id="1_djq3t"]
+[ext_resource type="Script" path="res://Container.gd" id="2_y2ds7"]
+[ext_resource type="Theme" uid="uid://ccuqu27vecpkn" path="res://dark.tres" id="3_7yg35"]
+
+[sub_resource type="Gradient" id="Gradient_b8epo"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_c827l"]
+gradient = SubResource("Gradient_b8epo")
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_djq3t")
+
+[node name="Bg" type="TextureRect" parent="."]
+offset_right = 256.0
+offset_bottom = 40.0
+texture = SubResource("GradientTexture1D_c827l")
+
+[node name="ChooseFile" type="FileDialog" parent="."]
+title = "Open a File"
+position = Vector2i(250, 100)
+size = Vector2i(640, 480)
+visible = true
+ok_button_text = "Open"
+dialog_hide_on_ok = true
+file_mode = 0
+access = 2
+
+[node name="TreeClimber" parent="." instance=ExtResource("1_87kdm")]
+
+[node name="UI" type="VBoxContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 152.0
+offset_top = 112.0
+offset_right = 998.0
+offset_bottom = 532.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+theme = ExtResource("3_7yg35")
+script = ExtResource("2_y2ds7")
+
+[node name="Source" type="RichTextLabel" parent="UI"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+text = "source"
+
+[node name="InteractionText" type="RichTextLabel" parent="UI"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+text = "text?"
+
+[node name="ItemList" type="ItemList" parent="UI"]
+layout_mode = 2
+size_flags_vertical = 3
+auto_height = true
+item_count = 2
+item_0/text = "Yes"
+item_1/text = "No"
+
+[connection signal="canceled" from="ChooseFile" to="." method="_on_choose_file_canceled"]
+[connection signal="file_selected" from="ChooseFile" to="." method="_on_choose_file_file_selected"]
+[connection signal="item_clicked" from="UI/ItemList" to="." method="_on_item_list_item_clicked"]
+[connection signal="item_selected" from="UI/ItemList" to="." method="_on_item_list_item_selected"]

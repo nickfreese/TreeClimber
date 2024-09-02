@@ -1,0 +1,15 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://ccuqu27vecpkn"]
+
+[ext_resource type="StyleBox" uid="uid://cd44hhl05u5tm" path="res://white_style_box_flat.tres" id="1_kq6xp"]
+[ext_resource type="StyleBox" uid="uid://o0b13qixbsx0" path="res://black_solid_style_box_flat.tres" id="2_voq3m"]
+
+[resource]
+resource_name = "Dark"
+ItemList/colors/font_color = Color(1, 1, 1, 1)
+ItemList/styles/cursor = ExtResource("1_kq6xp")
+ItemList/styles/cursor_unfocused = ExtResource("1_kq6xp")
+ItemList/styles/focus = ExtResource("2_voq3m")
+ItemList/styles/hovered = ExtResource("2_voq3m")
+ItemList/styles/panel = ExtResource("2_voq3m")
+ItemList/styles/selected = ExtResource("1_kq6xp")
+ItemList/styles/selected_focus = ExtResource("1_kq6xp")

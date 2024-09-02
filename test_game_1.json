@@ -1,0 +1,271 @@
+{
+	"active":null, 
+	"active_interaction":null,
+	"content_seen":[],
+	"state":{
+	  "welcome":false,
+	  "player_level": 2,
+	  "score":0
+	},
+	"sources":[
+	  {
+		"id":0,
+		"name": "Player 1",
+		"meta":{} 
+	  },
+	  {
+		"id":1,
+		"name": "Narrator",
+		"meta":{} 
+	  }
+	],
+	"load_tree":{
+	  "some_state_id":"path/to/json.json" 
+	},
+	"map":[  
+		{
+		"name":"welcome",
+		"id": 0,
+		"once":true,
+		"deps": [
+		  
+		],
+		"interactions":[
+		  {
+			"deps":[ 
+			  
+			],
+			"source_id":1, 
+			"text":"Welcome, ready to play?",
+			"options":[
+			  {
+				"text":"Yes",
+				"state_id": ["welcome", "score"],
+				"state_value": [true, 1] 
+			  },
+			  {
+				"text":"No",
+				"state_id": ["welcome"],
+				"state_value": [false] 
+			  }
+			]
+		  },
+		{
+			"deps":[ 
+			  {
+				"type":"state_id",
+				"id":"welcome",
+				"value": false
+			  }
+			],
+			"source_id":1, 
+			"text":"Goodbye",
+			"state_id":["some_id"],
+			"state_value": [true],
+			"options":[
+			  
+			]
+		  },
+		{
+			"deps":[ 
+			  {
+				"type":"state_id",
+				"id":"welcome",
+				"value": true
+			  }
+			],
+			"source_id":1, 
+			"text":"Glad to here it.  What's your name?",
+			"state_id":["some_id"],
+			"state_value": [true],
+			"options":[
+				{
+				"text":"Dave",
+				"state_id": ["player_1_name"],
+				"state_value": ["Dave"],
+				"state_add":[false]
+			  },
+			  {
+				"text":"Sam",
+				"state_id": ["player_1_name", "score"],
+				"state_value": ["Sam", 5],
+				"state_add":[false, true]
+			  }
+			  
+			]
+		  },
+		
+		], 
+		"meta":{} 
+	  },
+	{
+		"name":"in the dark",
+		"id": 1,
+		"once":true,
+		"deps": [
+		  {
+			"type":"content_id",
+			"id":0
+		  },
+		  
+		
+		],
+		"interactions":[
+		  {
+			"deps":[ 
+			],
+			"source_id":1, 
+			"text":"{{player_1_name}}, you're surrounded by darkness.  The smell wet stone fills the still air.  You hear the splash of a footstep ina  puddle echo behind you.  what do you do?",
+			"options":[
+			  {
+				"text":"Draw your sword",
+				"state_id": ["weapon_drawn"],
+				"state_value": [true],
+			  },
+			  {
+				"text":"Ask who's there",
+				"state_id": ["lvl_1_make_loud_sound"],
+				"state_value": [true],
+				"state_conditions": [
+					{
+						"group":[
+							{
+								"type":"and",
+								"id":"and1"
+							}
+						],
+						"state_id":["player_1_name"],
+						"state_value":["Sam"],
+						"operator":["=="]
+					}
+				]
+			  }
+			]
+		  },
+		{
+			"deps":[ 
+				{
+				"type":"state_id",
+				"id":"lvl_1_make_loud_sound",
+				"value": true
+			  }
+			],
+			"source_id":1, 
+			"text":"...",
+			"options":[
+			]
+		  },
+		{
+			"deps":[ 
+				{
+				"type":"state_id",
+				"id":"lvl_1_make_loud_sound",
+				"value": true
+			  }
+			],
+			"source_id":1, 
+			"text":"A thunderous roar echos, ending much closer to you than it started. fast sloshing steps trample closer. something large and fast storms towards you",
+			"options":[
+				{
+				"text":"Run",
+				"state_id": ["lvl_1_run_away"],
+				"state_value": [true] 
+			  },
+			  {
+				"text":"Draw your sword",
+				"state_id": ["weapon_drawn", "fighting_distance"],
+				"state_value": [true, true] 
+			  }
+			]
+		  },
+		{
+			"deps":[ 
+				{
+				"type":"state_id",
+				"id":"fighting_distance",
+				"value": true
+			  }
+			],
+			"source_id":1, 
+			"text":"The sound approaches, you can here it as though the thing is almost all around you. This is surely the last second",
+			"options":[
+			  {
+				"text":"Swing your sword",
+				"state_id": ["score", "hit_monster"],
+				"state_value": [1, true],
+				"state_add":[true, false]
+			  },
+			  {
+				"text":"Duck down",
+				"state_id": ["lowered_position"],
+				"state_value": [true] 
+			  }
+			]
+		  },
+		{
+			"deps":[ 
+				{
+				"type":"state_id",
+				"id":"hit_monster",
+				"value": true
+			  }
+			],
+			"source_id":1, 
+			"state_id": ["finished"],
+			"state_value": [true],
+			"text":"Your sword makes contact and you hear the beginings of a pained howel that is cut short as your sever the monsters head. Its body still having momentum knocks you down as the head rolls away.  Its quiet now and as you catch your breath you light up a latern and begin to find your way again...",
+			"options":[]
+		},
+		{
+			"deps":[ 
+				{
+				"type":"state_id",
+				"id":"finished",
+				"value": true
+			  }
+			],
+			"source_id":1, 
+			"text":"The end",
+			"options":[]
+		  },
+		{
+			"deps":[ 
+				{
+				"type":"state_id",
+				"id":"lowered_position",
+				"value": true
+			  }
+			],
+			"source_id":1, 
+			"text":"You duck down low, hoping this thing will leap above you but whatever it is is accustomed to the dark and you've ducked just to soon...",
+			"options":[]
+		  }
+		], 
+		"meta":{} 
+	  },
+	{
+		"name":"dead end",
+		"id": 2,
+		"once":true,
+		"deps": [
+		  
+		],
+		"interactions":[
+		  {
+			"deps":[ 
+			  
+			],
+			"source_id":1, 
+			"text":"You died",
+			"options":[
+			  
+			]
+		  }
+		
+		
+		
+		], 
+		"meta":{} 
+	  },
+	]
+}
