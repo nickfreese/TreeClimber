@@ -1,5 +1,5 @@
 # TreeClimber
-Dialog tree and state management class.  Define your entire game's flow in a JSON object without programming at all.
+Dialog tree and state management class.  Define your entire game's flow in a JSON object.
 
 ## What
 There are two main components to TreeClimber
@@ -7,6 +7,10 @@ There are two main components to TreeClimber
 1. A JSON schema specification for defining dialog, state variables, and dialog sources (characters/voices)
 
 2. A GD Script class that provides an API for modeling and traversal of the dialog tree.  Its main feature being that it uses the provided JSON definition to decide on the next piece of dialog or content based on game state requirements defined for that dialog or content.
+
+## Why
+
+combining state managemnt and dialog into a configuration format means you can define your game's content without tying it up in the programming of the game itself.  This free's you up to write and be creative with the flow of your game's story needing to program in specific features and game mechanics.
 
 
 ### Quick start
